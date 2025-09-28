@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { ConfigService } from './config.service';
 import { appConfig } from './app.config';
+import { postgresConfig } from './postgres.config';
 
 @Module({
   imports: [
@@ -10,7 +11,7 @@ import { appConfig } from './app.config';
       cache: true,
       envFilePath: ['.env', '.env.development'],
       expandVariables: true,
-      load: [appConfig],
+      load: [appConfig, postgresConfig],
     }),
   ],
   providers: [ConfigService],

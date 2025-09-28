@@ -12,6 +12,6 @@ export const appConfig = registerAs(
   'appConfig',
   (): AppConfigDTO => ({
     port: parseInt(process.env.PORT ?? '3000'),
-    platform: process.env.PLATFORM ?? 'local',
+    platform: process.env.PLATFORM ?? 'development',
   }),
 );
