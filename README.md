@@ -1,98 +1,196 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Krauthos
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Una aplicación NestJS con PostgreSQL construida con TypeScript.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📋 Requisitos previos
 
-## Description
+- [Node.js](https://nodejs.org/) (v20 o superior)
+- [pnpm](https://pnpm.io/) como gestor de paquetes
+- [Docker](https://www.docker.com/) y Docker Compose
+- [PostgreSQL](https://www.postgresql.org/) (opcional, se puede usar con Docker)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Instalación
 
-## Project setup
+### 1. Clonar el repositorio
 
 ```bash
-$ pnpm install
+git clone git@github.com:pierslabs/Krauthos.git
+cd Krauthos
 ```
 
-## Compile and run the project
+### 2. Instalar dependencias
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+pnpm install
 ```
 
-## Run tests
+### 3. Configurar variables de entorno
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+cp .env.example .env
 ```
 
-## Deployment
+Edita el archivo `.env` con tus configuraciones:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+```env
+PORT=3000
+NODE_ENV=development
+PLATFORM=es
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+# Database configuration
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=krauthos_user
+DB_PASSWORD=krauthos_password
+DB_NAME=krauthos_db
+
+# PostgreSQL Docker service variables
+POSTGRES_USER=krauthos_user
+POSTGRES_PASSWORD=krauthos_password
+POSTGRES_DB=krauthos_db
+```
+
+## 🐳 Ejecutar con Docker (Recomendado)
+
+### Desarrollo
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+docker-compose up --build
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Esto levantará:
 
-## Resources
+- PostgreSQL en el puerto 5432
+- La aplicación en el puerto 3000 con hot reload (gracias al docker-compose.override.yml)
 
-Check out a few resources that may come in handy when working with NestJS:
+### Producción / Staging
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+docker-compose -f docker-compose.yml up --build -d
+```
 
-## Support
+## 🛠️ Desarrollo local (sin Docker)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 1. Asegúrate de tener PostgreSQL ejecutándose
 
-## Stay in touch
+```bash
+# macOS con Homebrew
+brew services start postgresql
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# O usa Docker solo para la base de datos
+docker run --name krauthos-postgres -e POSTGRES_USER=krauthos_user -e POSTGRES_PASSWORD=krauthos_password -e POSTGRES_DB=krauthos_db -p 5432:5432 -d postgres:15-alpine
+```
 
-## License
+### 2. Ejecutar la aplicación
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+# Desarrollo con hot reload
+pnpm run start:dev
+
+# Desarrollo con debug
+pnpm run start:debug
+
+# Producción
+pnpm run build
+pnpm run start:prod
+```
+
+## 📜 Scripts disponibles
+
+```bash
+# Construcción
+pnpm run build          # Compilar el proyecto
+
+# Desarrollo
+pnpm run start          # Iniciar la aplicación
+pnpm run start:dev      # Iniciar con hot reload
+pnpm run start:debug    # Iniciar con debugger
+pnpm run start:prod     # Iniciar en modo producción
+
+# Calidad de código
+pnpm run lint           # Ejecutar ESLint
+pnpm run format         # Formatear código con Prettier
+
+# Testing
+pnpm run test           # Ejecutar tests unitarios
+pnpm run test:watch     # Ejecutar tests en modo watch
+pnpm run test:cov       # Ejecutar tests con coverage
+pnpm run test:debug     # Ejecutar tests con debugger
+pnpm run test:e2e       # Ejecutar tests end-to-end
+
+# Commits
+pnpm run commit         # Commit con Commitizen
+```
+
+## 🏗️ Arquitectura
+
+La aplicación está construida con:
+
+- **Framework**: [NestJS](https://nestjs.com/) - Framework Node.js escalable
+- **Base de datos**: [PostgreSQL](https://www.postgresql.org/) con [TypeORM](https://typeorm.io/)
+- **Lenguaje**: [TypeScript](https://www.typescriptlang.org/)
+- **Validación**: [class-validator](https://github.com/typestack/class-validator)
+  y [class-transformer](https://github.com/typestack/class-transformer)
+- **Configuración**: [@nestjs/config](https://docs.nestjs.com/techniques/configuration)
+
+## 📁 Estructura del proyecto
+
+```
+src/
+├── config/           # Módulos de configuración
+│   ├── app.config.ts
+│   ├── config.module.ts
+│   ├── config.service.ts
+│   └── postgres.config.ts
+├── database/         # Configuración de base de datos
+│   └── postgres.module.ts
+├── app.module.ts     # Módulo principal de la aplicación
+└── main.ts          # Punto de entrada de la aplicación
+```
+
+## 🌍 Variables de entorno
+
+| Variable      | Descripción                    | Valor por defecto   |
+|---------------|--------------------------------|---------------------|
+| `PORT`        | Puerto de la aplicación        | `3000`              |
+| `NODE_ENV`    | Entorno de ejecución           | `development`       |
+| `PLATFORM`    | Plataforma de la aplicación    | `es`                |
+| `DB_HOST`     | Host de la base de datos       | `localhost`         |
+| `DB_PORT`     | Puerto de la base de datos     | `5432`              |
+| `DB_USER`     | Usuario de la base de datos    | `krauthos_user`     |
+| `DB_PASSWORD` | Contraseña de la base de datos | `krauthos_password` |
+| `DB_NAME`     | Nombre de la base de datos     | `krauthos_db`       |
+
+## 🐛 Debugging
+
+### Con Docker
+
+```bash
+# Ver logs en tiempo real
+docker-compose logs -f app
+
+# Acceder al contenedor
+docker-compose exec app sh
+```
+
+### Local
+
+```bash
+# Ejecutar con debugger
+pnpm run start:debug
+
+# Ejecutar tests con debugger
+pnpm run test:debug
+```
+
+## 📝 Notas de desarrollo
+
+- El archivo `docker-compose.override.yml` se aplica automáticamente en desarrollo para habilitar hot reload
+- La aplicación se ejecuta en el puerto 3000 por defecto
+- PostgreSQL se ejecuta en el puerto 5432
+- Los datos de PostgreSQL se persisten en un volumen Docker named `postgres_data`
+
+## 📄 Licencia
+
+Este proyecto es privado y no tiene licencia pública.
+
